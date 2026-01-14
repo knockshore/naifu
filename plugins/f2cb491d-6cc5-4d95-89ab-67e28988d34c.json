@@ -1,0 +1,39 @@
+{
+  "Id": "f2cb491d-6cc5-4d95-89ab-67e28988d34c",
+  "Name": "CLI Command",
+  "Description": "Execute command-line programs",
+  "Category": "System",
+  "Icon": "⚙️",
+  "InputPins": [
+    {
+      "Name": "stdin_data",
+      "DataType": "string",
+      "Required": false,
+      "DefaultValue": null
+    }
+  ],
+  "OutputPins": [
+    {
+      "Name": "stdout",
+      "DataType": "string",
+      "PythonCode": null
+    },
+    {
+      "Name": "stderr",
+      "DataType": "string",
+      "PythonCode": null
+    },
+    {
+      "Name": "return_code",
+      "DataType": "number",
+      "PythonCode": null
+    }
+  ],
+  "PythonProcessCode": "# CLI Command execution\r\nimport subprocess\r\n\r\ncommand = config.get('command', '')\r\nargs = config.get('arguments', '')\r\nstdin_data = inputs.get('stdin_data', config.get('stdin_input', ''))\r\nuse_stdin = config.get('use_stdin', False)\r\n\r\nif not command:\r\n    outputs = {\r\n        'stdout': '',\r\n        'stderr': 'No command specified',\r\n        'return_code': -1\r\n    }\r\nelse:\r\n    try:\r\n        # Build command list\r\n        cmd_list = [command]\r\n        if args:\r\n            if isinstance(args, str):\r\n                cmd_list.extend(args.split())\r\n            else:\r\n                cmd_list.extend(args)\r\n        \r\n        # Execute\r\n        result = subprocess.run(\r\n            cmd_list,\r\n            input=stdin_data if use_stdin else None,\r\n            capture_output=True,\r\n            text=True,\r\n            timeout=30\r\n        )\r\n        \r\n        outputs = {\r\n            'stdout': result.stdout,\r\n            'stderr': result.stderr,\r\n            'return_code': result.returncode\r\n        }\r\n    except Exception as e:\r\n        outputs = {\r\n            'stdout': '',\r\n            'stderr': str(e),\r\n            'return_code': -1\r\n        }\r\n",
+  "ConfigProperties": {
+    "command": "",
+    "arguments": "",
+    "use_stdin": false,
+    "stdin_input": ""
+  }
+}

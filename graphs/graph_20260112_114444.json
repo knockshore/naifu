@@ -1,0 +1,56 @@
+{
+  "nodes": [
+    {
+      "id": "d5c5fe3d-3c59-45b7-9e93-7d57ed34e4e8",
+      "type": "Plugin",
+      "name": "Input",
+      "position": {
+        "x": 70.0,
+        "y": 79.0
+      },
+      "pluginId": "52e7c578-aedf-4afc-bb07-b7378755c444",
+      "config": {
+        "input_data": "{\"name\":\"Karthick\"}",
+        "data_type": "text"
+      }
+    },
+    {
+      "id": "0b872abc-4949-47ce-9090-a6f8f76bea93",
+      "type": "Plugin",
+      "name": "Output",
+      "position": {
+        "x": 422.0,
+        "y": 277.0
+      },
+      "pluginId": "6f433799-e942-4bf5-a751-c0fb29ea76a3",
+      "config": {}
+    },
+    {
+      "id": "16b6d4b0-d569-4b01-a3ae-7db3c03ba9b3",
+      "type": "Plugin",
+      "name": "JSON Parser",
+      "position": {
+        "x": 167.0,
+        "y": 249.0
+      },
+      "pluginId": "c18ab385-ebd1-4c72-9fed-a4bb7dc5e6fe",
+      "config": {}
+    }
+  ],
+  "connections": [
+    {
+      "id": "f6de4c90-138d-4fd7-b4ed-51f84ce3ea9b",
+      "source_node_id": "d5c5fe3d-3c59-45b7-9e93-7d57ed34e4e8",
+      "source_output": "data",
+      "target_node_id": "16b6d4b0-d569-4b01-a3ae-7db3c03ba9b3",
+      "target_input": "json_string"
+    },
+    {
+      "id": "3dd75fef-5c9b-4cf8-9625-4083b2e55d75",
+      "source_node_id": "16b6d4b0-d569-4b01-a3ae-7db3c03ba9b3",
+      "source_output": "data",
+      "target_node_id": "0b872abc-4949-47ce-9090-a6f8f76bea93",
+      "target_input": "data"
+    }
+  ]
+}

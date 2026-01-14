@@ -1,0 +1,20 @@
+{
+  "Id": "52e7c578-aedf-4afc-bb07-b7378755c444",
+  "Name": "Input",
+  "Description": "Provides input data to the graph",
+  "Category": "Core",
+  "Icon": "📥",
+  "InputPins": [],
+  "OutputPins": [
+    {
+      "Name": "data",
+      "DataType": "any",
+      "PythonCode": null
+    }
+  ],
+  "PythonProcessCode": "# Input node - provides data\r\n# Configure the data in the node properties\r\ndata = config.get('input_data', '')\r\ndata_type = config.get('data_type', 'text')\r\n\r\n# Parse based on data type\r\nif data_type == 'json':\r\n    import json\r\n    try:\r\n        parsed_data = json.loads(data)\r\n    except:\r\n        parsed_data = data\r\nelif data_type == 'number':\r\n    try:\r\n        parsed_data = float(data)\r\n    except:\r\n        parsed_data = data\r\nelif data_type == 'boolean':\r\n    parsed_data = data.lower() in ('true', '1', 'yes')\r\nelse:\r\n    parsed_data = data\r\n\r\noutputs = {'data': parsed_data}\r\n",
+  "ConfigProperties": {
+    "input_data": "",
+    "data_type": "text"
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "Id": "b6412caa-85b8-49d0-8c85-e4e124efb609",
+  "Name": "Math Calculator",
+  "Description": "Perform mathematical operations",
+  "Category": "Math",
+  "Icon": "🔢",
+  "InputPins": [
+    {
+      "Name": "a",
+      "DataType": "number",
+      "Required": true,
+      "DefaultValue": 0
+    },
+    {
+      "Name": "b",
+      "DataType": "number",
+      "Required": true,
+      "DefaultValue": 0
+    }
+  ],
+  "OutputPins": [
+    {
+      "Name": "sum",
+      "DataType": "number",
+      "PythonCode": null
+    },
+    {
+      "Name": "difference",
+      "DataType": "number",
+      "PythonCode": null
+    },
+    {
+      "Name": "product",
+      "DataType": "number",
+      "PythonCode": null
+    },
+    {
+      "Name": "quotient",
+      "DataType": "number",
+      "PythonCode": null
+    }
+  ],
+  "PythonProcessCode": "# Perform calculations\r\na = float(inputs.get('a', 0))\r\nb = float(inputs.get('b', 0))\r\n\r\noutputs = {\r\n    'sum': a + b,\r\n    'difference': a - b,\r\n    'product': a * b,\r\n    'quotient': a / b if b != 0 else None\r\n}\r\n",
+  "ConfigProperties": {}
+}

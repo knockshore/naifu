@@ -1,0 +1,35 @@
+{
+  "Id": "c18ab385-ebd1-4c72-9fed-a4bb7dc5e6fe",
+  "Name": "JSON Parser",
+  "Description": "Parse and extract data from JSON",
+  "Category": "Data",
+  "Icon": "📋",
+  "InputPins": [
+    {
+      "Name": "json_string",
+      "DataType": "string",
+      "Required": true,
+      "DefaultValue": null
+    },
+    {
+      "Name": "path",
+      "DataType": "string",
+      "Required": false,
+      "DefaultValue": ""
+    }
+  ],
+  "OutputPins": [
+    {
+      "Name": "data",
+      "DataType": "any",
+      "PythonCode": null
+    },
+    {
+      "Name": "is_valid",
+      "DataType": "boolean",
+      "PythonCode": null
+    }
+  ],
+  "PythonProcessCode": "import json\r\n\r\njson_string = inputs.get('json_string', '{}')\r\npath = inputs.get('path', '')\r\n\r\ntry:\r\n    data = json.loads(json_string)\r\n    \r\n    # Navigate path if provided\r\n    if path:\r\n        for key in path.split('.'):\r\n            if key:\r\n                data = data.get(key, None) if isinstance(data, dict) else None\r\n    \r\n    outputs = {\r\n        'data': data,\r\n        'is_valid': True\r\n    }\r\nexcept Exception as e:\r\n    outputs = {\r\n        'data': None,\r\n        'is_valid': False,\r\n        'error': str(e)\r\n    }\r\n",
+  "ConfigProperties": {}
+}

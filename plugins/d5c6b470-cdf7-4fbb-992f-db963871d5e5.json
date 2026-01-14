@@ -1,0 +1,45 @@
+{
+  "Id": "d5c6b470-cdf7-4fbb-992f-db963871d5e5",
+  "Name": "REST API",
+  "Description": "Make HTTP requests to REST APIs",
+  "Category": "Network",
+  "Icon": "🌐",
+  "InputPins": [
+    {
+      "Name": "url_override",
+      "DataType": "string",
+      "Required": false,
+      "DefaultValue": null
+    },
+    {
+      "Name": "payload_data",
+      "DataType": "any",
+      "Required": false,
+      "DefaultValue": null
+    }
+  ],
+  "OutputPins": [
+    {
+      "Name": "response_text",
+      "DataType": "string",
+      "PythonCode": null
+    },
+    {
+      "Name": "status_code",
+      "DataType": "number",
+      "PythonCode": null
+    },
+    {
+      "Name": "success",
+      "DataType": "boolean",
+      "PythonCode": null
+    }
+  ],
+  "PythonProcessCode": "# REST API request\r\nimport json\r\ntry:\r\n    import urllib.request\r\n    \r\n    # Get configuration\r\n    url = inputs.get('url_override', config.get('url', ''))\r\n    method = config.get('method', 'GET')\r\n    payload_data = inputs.get('payload_data', config.get('payload', ''))\r\n    \r\n    # Prepare headers\r\n    headers = {}\r\n    headers_str = config.get('headers', '')\r\n    if headers_str:\r\n        try:\r\n            headers = json.loads(headers_str) if isinstance(headers_str, str) else headers_str\r\n        except:\r\n            pass\r\n    \r\n    # Prepare request\r\n    data = None\r\n    if payload_data:\r\n        if isinstance(payload_data, str):\r\n            data = payload_data.encode('utf-8')\r\n        else:\r\n            data = json.dumps(payload_data).encode('utf-8')\r\n            headers['Content-Type'] = 'application/json'\r\n    \r\n    req = urllib.request.Request(url, data=data, headers=headers, method=method)\r\n    \r\n    # Make request\r\n    with urllib.request.urlopen(req) as response:\r\n        response_text = response.read().decode('utf-8')\r\n        status_code = response.status\r\n        \r\n    outputs = {\r\n        'response_text': response_text,\r\n        'status_code': status_code,\r\n        'success': True\r\n    }\r\nexcept Exception as e:\r\n    outputs = {\r\n        'response_text': '',\r\n        'status_code': 0,\r\n        'success': False,\r\n        'error': str(e)\r\n    }\r\n",
+  "ConfigProperties": {
+    "url": "https://api.example.com",
+    "method": "GET",
+    "headers": "{}",
+    "payload": ""
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "Id": "6f433799-e942-4bf5-a751-c0fb29ea76a3",
+  "Name": "Output",
+  "Description": "Logs all inputs to console",
+  "Category": "Core",
+  "Icon": "📤",
+  "InputPins": [
+    {
+      "Name": "data",
+      "DataType": "any",
+      "Required": false,
+      "DefaultValue": null
+    }
+  ],
+  "OutputPins": [],
+  "PythonProcessCode": "# Output node - logs inputs\r\nfrom datetime import datetime\r\n\r\ntimestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')\r\nlog_lines = [f'[{timestamp}] Output Node:']\r\n\r\nfor key, value in inputs.items():\r\n    log_lines.append(f'  {key}: {value}')\r\n\r\nlog_message = '\\n'.join(log_lines)\r\nprint(log_message)\r\n\r\noutputs = {'logged': True, 'message': log_message}\r\n",
+  "ConfigProperties": {}
+}

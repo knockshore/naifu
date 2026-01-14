@@ -1,0 +1,29 @@
+{
+  "Id": "db66f8e4-43df-47c2-b30b-13b4bec4bd3b",
+  "Name": "String Transform",
+  "Description": "Transform string using Python",
+  "Category": "Text",
+  "Icon": "📝",
+  "InputPins": [
+    {
+      "Name": "text",
+      "DataType": "string",
+      "Required": true,
+      "DefaultValue": null
+    }
+  ],
+  "OutputPins": [
+    {
+      "Name": "result",
+      "DataType": "string",
+      "PythonCode": null
+    },
+    {
+      "Name": "length",
+      "DataType": "number",
+      "PythonCode": "result = len(str(inputs.get('text', '')))"
+    }
+  ],
+  "PythonProcessCode": "# Transform the input text\r\ntext = str(inputs.get('text', ''))\r\noutputs = {\r\n    'result': text.upper(),\r\n    'original_length': len(text)\r\n}\r\n",
+  "ConfigProperties": {}
+}
